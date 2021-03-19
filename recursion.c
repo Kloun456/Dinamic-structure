@@ -5,7 +5,7 @@
 const int n = 40;
 int count = 0;  // for symbols
 
-void Print_array(int *x), Fill_array(int *x);
+void Print_array(int *x), Fill_array(int *x), Print_numb(int *x, int );
 int min(int *x), min1(int *x, int , int), digits(FILE *my_file), symbols(FILE *my_file), sum(int *x, int );
 
 
@@ -45,6 +45,24 @@ int main()
     printf("quantity digits = %d\n", digits(my_file));
     fclose(my_file); */
 
+    // 4)
+    Print_numb(x,i);
+}
+
+void Print_numb(int *x, int i)
+{
+    if (x[i] < 0)
+    {
+        printf("%d\t",x[i]);
+        Print_numb(x,i+1);
+    }
+    else if (x[i] > 0)
+    {
+        Print_numb(x,i+1);
+        printf("%d\t",x[i]);
+    }
+    else
+        return 0;
 }
 
 int sum(int *x, int l)
