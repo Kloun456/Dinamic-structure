@@ -4,7 +4,6 @@
 #include <ctype.h>
 const int n = 40;
 int count = 0;  // for symbols
-int l = -1;
 
 void Print_array(int *x), Fill_array(int *x);
 int min(int *x), min1(int *x, int , int), digits(FILE *my_file), symbols(FILE *my_file), sum(int *x, int );
@@ -60,7 +59,7 @@ int sum(int *x, int l)
 int digits(FILE *my_file)
 {
     char c;
-    if((c = fgetc(my_file))!= EOF || isdigit(c = fgetc(my_file)) )
+    if((c = fgetc(my_file))!= EOF || isdigit(c = fgetc(my_file)) ) // проверка пока не конец файла или символ является цифрой
     {
         if (isdigit(c))
             count++;
@@ -84,10 +83,10 @@ int symbols(FILE *my_file)
 
 int min (int *x) // function min
 {
-    return min1(x,0,999999);
+    return min1(x,0,999999);    
 }
 
-int min1(int *x, int k, int minimum) // recursion min
+int min1(int *x, int k, int minimum) // recursion min   можно улучшить наверно
 {
     if (k == n-1)
         return minimum;
