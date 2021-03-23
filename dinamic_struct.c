@@ -63,10 +63,10 @@ void Show_stack(pStack ps)
 {
     pNode temp = ps->first;
     if (Is_empty(ps))
-        printf("Stack is empty!\n");
+        printf("\nStack is empty!\n");
     else
     {
-        while(!Is_empty(ps))
+        while(temp)
         {
             printf("%c\t",temp->c);
             temp = temp->next;
@@ -74,12 +74,22 @@ void Show_stack(pStack ps)
     }
 }
 
+void Clear_stack(pStack ps)
+{
+    if (Is_empty(ps))
+        printf("\nStack is empty!");
+    else
+        while (!Is_empty(ps))
+            Pop(ps);
+}
+
 int main()
 {
-    pStack st = Create_stack();
+     pStack st = Create_stack();
     char c;
     for (c = 'a'; c <= 'z'; c++)
         Push(st,c);
     Show_stack(st);
-
+    Clear_stack(st);
+    Show_stack(st);
 }
