@@ -7,7 +7,7 @@ int count = 0;  // for symbols
 float eps = 1e-12;
 
 void Print_array(int *x), Fill_array(int *x), Print_numb(int *x, int );
-int min(int *x), min1(int *x, int , int), digits(FILE *my_file), symbols(FILE *my_file), sum(int *x, int );
+int min(int *x), min1(int *x, int ), digits(FILE *my_file), symbols(FILE *my_file), sum(int *x, int );
 float Solution(float , float), f(float );
 
 
@@ -124,17 +124,19 @@ int symbols(FILE *my_file)
 
 int min (int *x) // function min
 {
-    return min1(x,0,999999);    
+    return min1(x,9);    
 }
 
-int min1(int *x, int k, int minimum) // recursion min   можно улучшить наверно
+int min1(int *x, int k, int minimum) // recursion min   
 {
-    if (k == n-1)
-        return minimum;
-    if (minimum >= x[k])
-        minimum = x[k];
-    return min1(x,k + 1,minimum);
+    if (k == 0)
+        return x[0];
+    if (x[k]< min1(x,k-1))
+        return  x[k];
+    else
+        return min1(x,k-1);
 }
+
 
 void Fill_array(int *x)
 {
