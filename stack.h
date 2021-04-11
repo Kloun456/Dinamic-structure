@@ -3,23 +3,21 @@
 
 typedef struct Node
 {
-    char c;
+    int c;
     struct Node *next;
-
-}*pNode;
+}NODE;
 
 typedef struct Stack
 {
-    pNode first;
+    NODE *first;
     int len;
+}STACK;
 
-}*pStack;
-
-pStack Create_stack();
-void Push_front_stack(pStack ps,char ch);
-char Pop_front_stack(pStack ps);
-int Is_empty_stack(pStack ps);
-void Show_stack(pStack ps);
-void Clear_stack(pStack ps);
+STACK *Create_stack();
+void Push_front_stack(STACK *ps,int ch);
+int Pop_front_stack(STACK *ps);
+int Is_empty_stack(STACK *ps);
+void Show_stack(STACK *ps);
+void Clear_stack(STACK *ps);
 
 #endif
