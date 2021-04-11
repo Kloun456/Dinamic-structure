@@ -1,20 +1,20 @@
 #include "List.h"
 
-pList Create_list()
+LIST *Create_list()
 {
-    pList pl;
-    pl = (pList)malloc(sizeof(pList));
+    LIST *pl;
+    pl = (LIST *)malloc(sizeof(LIST));
     pl->first = 0;
     pl->len = 0;
     return pl;
 }
 
-void Push_back_list(pList pl,char ch)
+void Push_back_list(LIST *pl,char ch)
 {
-    pNode1 temp = pl->first;
+    NODE *temp = pl->first;
     if (pl->first == 0)
     {
-        pl->first = (pNode1)malloc(sizeof(pNode1));
+        pl->first = (NODE *)malloc(sizeof(NODE));
         pl->first->c = ch;
         pl->first->next = 0;
     }
@@ -24,55 +24,54 @@ void Push_back_list(pList pl,char ch)
         {
             temp = temp->next;
         }
-        temp->next = (pNode1)malloc(sizeof(pNode1));
+        temp->next = (NODE *)malloc(sizeof(NODE));
         temp->next->c = ch;
         temp->next->next = 0;
     }
     pl->len++;
 }
 
-void Push_front_list(pList pl, char ch)
+void Push_front_list(LIST *pl, char ch)
 {
-    pNode1 temp = pl->first;
+    NODE *temp = pl->first;
     if (pl->first == 0)
     {
-        pl->first = (pNode1)malloc(sizeof(pNode1));
+        pl->first = (NODE *)malloc(sizeof(NODE));
         pl->first->c = ch;
         pl->first->next = 0;
     }
     else
     {
-        pl->first = (pNode1)malloc(sizeof(pNode1));
+        pl->first = (NODE *)malloc(sizeof(NODE));
         pl->first->c = ch;
         pl->first->next = temp;
     }
     pl->len++;
-
 }
 
-char Pop_front_list(pList pl)
+char Pop_front_list(LIST *pl)
 {
     char ch;
-
-    pNode1 temp = pl->first;
+    NODE *temp = pl->first;
     ch = pl->first->c;
     pl->first = pl->first->next;
     free(temp);
+    temp = 0;
     pl->len--;
     return ch;
 }
 
-int Is_empty_list(pList pl)
+int Is_empty_list(LIST *pl)
 {
     if (pl->len && pl->first)
         return 0;
     return 1;
 }
 
-void Show_list(pList pl)
+void Show_list(LIST *pl)
 {
-    pNode1 temp = pl->first;
-    if (Is_empty(pl))
+    NODE *temp = pl->first;
+    if (Is_empty_list(pl))
         printf("\nList is empty!\n");
     else
     {
@@ -82,13 +81,12 @@ void Show_list(pList pl)
             temp = temp->next;
         }
     }
+    free(temp);
+    temp = 0;
 }
 
-void Clear_list(pList pl)
+void Clear_list(LIST *pl)
 {
-    if (Is_empty(pl))
-        printf("\nList is empty!");
-    else
-        while (!Is_empty(pl))
-            Pop_front_list(pl);
+    while (!Is_empty_list(pl))
+        Pop_front_list(pl);
 }
