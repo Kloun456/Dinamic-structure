@@ -1,27 +1,26 @@
 #ifndef LIST_H_INCLUDED
 #define LIST_H_INCLUDED
 
-typedef struct Node1
+typedef struct Node
 {
     char c;
-    struct Node1 *next;
+    struct Node *next;
 
-}*pNode1;
+}NODE;
 
 typedef struct List
 {
-    pNode1 first;
+    NODE *first;
     int len;
+}LIST;
 
-}*pList;
 
-
-pList Create_list();
-void Push_back_list(pList pl, char ch);
-void Push_front_list(pList pl, char ch);
-char Pop_front_list(pList pl);
-int Is_empty_list(pList pl);
-void Show_list(pList pl);
-void Clear_list(pList pl);
+LIST *Create_list();
+void Push_back_list(LIST *pl, char ch);
+void Push_front_list(LIST *pl, char ch);
+char Pop_front_list(LIST *pl);
+int Is_empty_list(LIST *pl);
+void Show_list(LIST *pl);
+void Clear_list(LIST *pl);
 
 #endif // LIST_H_INCLUDED
