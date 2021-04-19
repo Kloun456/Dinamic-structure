@@ -27,57 +27,41 @@ void Sort(STACK *st, STACK *neg, STACK *pos)  // сортирует на два 
 
 void Delete(STACK *st)  // удаляет четные числа
 {
-    NODE *temp = st->first;
-    NODE *previous, *del;
-    while(temp->next != 0)
+    STACK *del = Create_stack();
+    while(st->len)
     {
-        if (st->first->c % 2 == 0)
-        {
+        if(st->first->c % 2 != 0)
+            Push_front_stack(del,Pop_front_stack(st));
+        else
             Pop_front_stack(st);
-            temp = st->first;
-            continue;
-        }
-        else if (temp->c % 2 == 0)
-        {
-            del = temp;
-            previous->next = temp->next;
-            temp = temp->next;
-            free(del);
-            st->len--;
-            continue;
-        }
-        previous = temp;
-        temp = temp->next;
     }
-    if(temp->c % 2 == 0)
-    {
-        free(temp);
-        st->len--;
-        previous->next = 0;
-    }
+    while(del->len)
+        Push_front_stack(st,Pop_front_stack(del));
+
+}
+
+STACK *Swap(STACK *st)
+{
+    STACK *del = Create_stack();
+    int t = Pop_front_stack(st);
+    Push_front_stack(del,t);
+    for (int i = st->len; i > 0; i--)
+        Push_front_stack(del,Pop_front_stack(st));
+    return del;
 }
 
 void Delete_index(STACK *st) // удаляет каждый второй элемент
 {
-    int i = 1;
-    NODE *temp = st->first;
-    NODE *previous, *del;
-    while(temp->next != 0)
+    STACK *del = Create_stack();
+    for(int i = st->len; i > 0; i--)
     {
-        if (i % 2 == 0)
-        {
-            del = temp;
-            previous->next = temp->next;
-            temp = temp->next;
-            st->len--;
-            free(del);
-            i++;
-            continue;
-        }
-        previous = temp;
-        temp = temp->next;
-        i++;
+        if(i % 2 == 0)
+            Push_front_stack(del,Pop_front_stack(st));
+        else
+            Pop_front_stack(st);
     }
+    while(del->len)
+        Push_front_stack(st,Pop_front_stack(del));
 }
 
 int main()
@@ -107,9 +91,9 @@ int main()
     //3
     /*printf("\nMain stack:\n");
     Show_stack(st);
-    Swap(st);
+    neg = Swap(st);
     printf("\nMain stack after swap:\n");
-    Show_stack(st);*/
+    Show_stack(neg);*/
 
     //4
     /*printf("\nMain stack:\n");
