@@ -5,6 +5,7 @@ QUEUE *Create_queue()
     QUEUE *pq;
     pq = (QUEUE *)malloc(sizeof(QUEUE));
     pq->first = 0;
+    pq->last = 0;
     pq->len = 0;
     return pq;
 }
@@ -17,16 +18,18 @@ void Push_back_queue(QUEUE *pq,char ch)
         pq->first = (NODE *)malloc(sizeof(NODE));
         pq->first->c = ch;
         pq->first->next = 0;
+        pq->last = pq->first;
     }
     else
     {
-        while(temp->next != 0)
+        while(temp->next)
         {
             temp = temp->next;
         }
-        temp->next = (NODE *)malloc(sizeof(NODE));
-        temp->next->c = ch;
-        temp->next->next = 0;
+        pq->last = (NODE *)malloc(sizeof(NODE));
+        pq->last->next = 0;
+        pq->last->c = ch;
+        temp->next = pq->last;
     }
     pq->len++;
 }
@@ -71,4 +74,3 @@ void Clear_queue(QUEUE *pq)
     while (!Is_empty_queue(pq))
         Pop_front_queue(pq);
 }
-
