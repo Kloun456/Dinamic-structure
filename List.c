@@ -9,56 +9,63 @@ LIST *Create_list()
     return pl;
 }
 
-void Push_back_list(LIST *pl,char ch)
+NODE *Get_pointer_list(LIST *pl, int ch)
 {
     NODE *temp = pl->first;
-    if (pl->first == 0)
+    if (Is_empty_list(pl))
+        return 0;
+    if (temp->c >= ch)
+        return temp;
+    while(temp->c < ch && temp != 0)
+        temp = temp->next;
+    return temp;
+}
+void Push_after_list(LIST *pl, NODE *pn, int ch)
+{
+    NODE *new_date = (NODE *)malloc(sizeof(NODE));
+    new_date->c = ch;
+    if (!pn)
     {
-        pl->first = (NODE *)malloc(sizeof(NODE));
-        pl->first->c = ch;
-        pl->first->next = 0;
+        new_date->next = 0;
+        pl->first = new_date;
     }
     else
     {
-        while(temp->next != 0)
+        if (pn==pl->first && ch <= pl->first->c)
         {
-            temp = temp->next;
+            new_date->next = pl->first;
+            pl->first = new_date;
         }
-        temp->next = (NODE *)malloc(sizeof(NODE));
-        temp->next->c = ch;
-        temp->next->next = 0;
+        else
+        {
+            NODE *temp = pn->next;
+            new_date->next = temp;
+            pn->next = new_date;
+        }
     }
     pl->len++;
 }
 
-void Push_front_list(LIST *pl, char ch)
+int Pop_list(LIST *pl, NODE *pn)
 {
+    if(!pn)
+        return 0;
     NODE *temp = pl->first;
-    if (pl->first == 0)
+    NODE *del = pn;
+    if(pn == pl->first)
     {
-        pl->first = (NODE *)malloc(sizeof(NODE));
-        pl->first->c = ch;
-        pl->first->next = 0;
+        pl->first = temp->next;
+        free(temp);
     }
     else
     {
-        pl->first = (NODE *)malloc(sizeof(NODE));
-        pl->first->c = ch;
-        pl->first->next = temp;
+        while (temp->next != pn)
+            temp = temp->next;
+        temp->next = pn->next;
+        free(del);
     }
-    pl->len++;
-}
-
-char Pop_front_list(LIST *pl)
-{
-    char ch;
-    NODE *temp = pl->first;
-    ch = pl->first->c;
-    pl->first = pl->first->next;
-    free(temp);
-    temp = 0;
     pl->len--;
-    return ch;
+    return 1;
 }
 
 int Is_empty_list(LIST *pl)
@@ -77,7 +84,7 @@ void Show_list(LIST *pl)
     {
         while(temp)
         {
-            printf("%c\t",temp->c);
+            printf("%d\t",temp->c);
             temp = temp->next;
         }
     }
@@ -87,6 +94,15 @@ void Show_list(LIST *pl)
 
 void Clear_list(LIST *pl)
 {
-    while (!Is_empty_list(pl))
-        Pop_front_list(pl);
+    while(pl->first->next)
+        Pop_list(l,pl->first);
+    free(pl->first);
+    pl->len--;
+}
+
+void Delete_list(LIST *pl)
+{
+    if (!Is_empty_list(pl))
+        Clear_list(pl);
+    free(pl);
 }
