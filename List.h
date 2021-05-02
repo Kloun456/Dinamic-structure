@@ -3,7 +3,7 @@
 
 typedef struct Node
 {
-    char c;
+    int c;
     struct Node *next;
 
 }NODE;
@@ -16,11 +16,12 @@ typedef struct List
 
 
 LIST *Create_list();
-void Push_back_list(LIST *pl, char ch);
-void Push_front_list(LIST *pl, char ch);
-char Pop_front_list(LIST *pl);
+void Push_after_list(LIST *pl, NODE *pn, int ch);
+NODE *Get_pointer_list(LIST *pl, int ch);
+int Pop_list(LIST *pl, NODE *pn);
 int Is_empty_list(LIST *pl);
 void Show_list(LIST *pl);
 void Clear_list(LIST *pl);
+void Delete_list(LIST *pl);
 
 #endif // LIST_H_INCLUDED
